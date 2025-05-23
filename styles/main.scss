@@ -1,0 +1,28 @@
+// Variables
+@import 'variables';
+
+// Base styles
+@import 'base/reset';
+@import 'base/typography';
+// @import 'base/utilities'; // TODO: Create utilities file
+
+// Components
+@import 'components/navigation';
+@import 'components/menu';
+@import 'components/footer';
+@import 'components/predictions';
+
+// Layout
+// @import 'layout/header'; // TODO: Create header layout
+// @import 'layout/footer'; // TODO: Create footer layout
+// @import 'layout/grid'; // TODO: Create grid layout
+
+// Pages
+// @import 'pages/home'; // TODO: Create home page styles
+// @import 'pages/about'; // TODO: Create about page styles
+// @import 'pages/contacts'; // TODO: Create contacts page styles
+// @import 'pages/menu'; // TODO: Create menu page styles
+// @import 'pages/predictions'; // TODO: Create predictions page styles
+
+// Themes
+// @import 'themes/coffee-theme'; // TODO: Create coffee theme 

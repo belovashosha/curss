@@ -1,0 +1,12 @@
+{
+  "name": "coffee-house",
+  "version": "1.0.0",
+  "description": "Coffee House Website",
+  "scripts": {
+    "sass": "sass styles/main.scss:styles/main.css --watch",
+    "sass:build": "sass styles/main.scss:styles/main.css --style compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.69.5"
+  }
+} 

@@ -1,0 +1,138 @@
+// Colors
+$primary-color: #09035f;
+$secondary-color: #1a0b8c;
+$accent-color: #e6c9a8;
+$background-color: #F8F9FA;
+$text-color: #666;
+$white: #ffffff;
+$black: #000000;
+
+// Gradients
+$card-background: linear-gradient(135deg, #e6e8ff, #d8daff);
+$hero-gradient: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(9, 3, 95, 0.1);
+$shadow-md: 0 4px 6px rgba(9, 3, 95, 0.1);
+$shadow-lg: 0 10px 30px rgba(9, 3, 95, 0.1);
+$shadow-hover: 0 20px 40px rgba(9, 3, 95, 0.2);
+
+// Typography
+$font-family-base: 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-family-heading: 'Playfair Display', serif;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 2rem;
+$font-size-4xl: 3rem;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+// Border Radius
+$border-radius-sm: 5px;
+$border-radius-md: 10px;
+$border-radius-lg: 20px;
+$border-radius-xl: 30px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-2xl: 1400px;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+// TODO: Uncomment when implementing popover component
+// $z-index-popover: 1060;
+// TODO: Uncomment when implementing tooltip component
+// $z-index-tooltip: 1070;
+
+// Container
+$container-max-width: 1400px;
+$container-padding: $spacing-md;
+
+// TODO: Uncomment when implementing menu component
+// Menu Categories
+// $menu-categories: (
+//     'coffee': #6F4E37,
+//     'desserts': #D4AF37,
+//     'special-drinks': #8B4513,
+//     'tea': #228B22
+// );
+
+// Prediction Cards
+$prediction-card-height: 250px;
+$prediction-card-width: 300px;
+$prediction-card-spacing: $spacing-lg;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin responsive($breakpoint) {
+    @if $breakpoint == sm {
+        @media (min-width: $breakpoint-sm) { @content; }
+    }
+    @else if $breakpoint == md {
+        @media (min-width: $breakpoint-md) { @content; }
+    }
+    @else if $breakpoint == lg {
+        @media (min-width: $breakpoint-lg) { @content; }
+    }
+    @else if $breakpoint == xl {
+        @media (min-width: $breakpoint-xl) { @content; }
+    }
+    @else if $breakpoint == 2xl {
+        @media (min-width: $breakpoint-2xl) { @content; }
+    }
+}
+
+@mixin hover-transform {
+    transition: transform $transition-base;
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@mixin card-shadow {
+    box-shadow: $shadow-md;
+    transition: box-shadow $transition-base;
+    &:hover {
+        box-shadow: $shadow-hover;
+    }
+}
+
+@mixin text-gradient {
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+} 

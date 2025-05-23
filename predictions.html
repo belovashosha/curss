@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <title>Предсказания - Resource Coffee House</title>
+        <style>
+            :root {
+                --primary-color: #09035f;
+                --secondary-color: #1a0b8c;
+                --accent-color: #09035f;
+                --background-color: #F8F9FA;
+                --text-color: #666;
+                --card-background: linear-gradient(135deg, #e6e8ff, #d8daff);
+                --shadow-color: rgba(9, 3, 95, 0.1);
+                --transition-speed: 0.3s;
+            }
+
+            body {
+                background-color: var(--background-color);
+                color: var(--text-color);
+                font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 1000;
+                box-shadow: 0 2px 10px rgba(9, 3, 95, 0.1);
+                backdrop-filter: blur(10px);
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--primary-color);
+                text-decoration: none;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .nav-links a {
+                color: var(--text-color);
+                text-decoration: none;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--primary-color);
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover::after,
+            .nav-links a.active::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--primary-color);
+            }
+
+            .burger-menu {
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 21px;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .burger-menu span {
+                display: block;
+                width: 100%;
+                height: 3px;
+                background: var(--primary-color);
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+
+            .prediction-section {
+                padding: 2rem;
+                max-width: 1400px;
+                margin: 80px auto 0;
+            }
+
+            .prediction-header {
+                text-align: center;
+                margin: 2rem auto 4rem;
+                max-width: 800px;
+                padding: 4rem 2rem;
+                background: var(--card-background);
+                border-radius: 30px;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                transform: translateY(0);
+                transition: transform var(--transition-speed);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+            }
+
+            .prediction-header:hover {
+                transform: translateY(-5px);
+            }
+
+            .prediction-header h1 {
+                color: var(--primary-color);
+                font-size: 3rem;
+                margin-bottom: 1.5rem;
+                font-weight: 700;
+            }
+
+            .prediction-header p {
+                color: var(--text-color);
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+
+            .divination-methods {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-bottom: 4rem;
+            }
+
+            .method-card {
+                background: var(--card-background);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                border: 1px solid rgba(9, 3, 95, 0.1);
+            }
+
+            .method-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(9, 3, 95, 0.2);
+            }
+
+            .method-image {
+                height: 250px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .method-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .method-card:hover .method-image img {
+                transform: scale(1.1);
+            }
+
+            .method-info {
+                padding: 2rem;
+            }
+
+            .method-title {
+                color: var(--primary-color);
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+                font-weight: 600;
+            }
+
+            .method-description {
+                color: var(--text-color);
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+            }
+
+            .method-features {
+                list-style: none;
+                padding: 0;
+                margin: 1.5rem 0;
+            }
+
+            .method-features li {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 1rem;
+                color: var(--text-color);
+            }
+
+            .method-features li i {
+                color: var(--primary-color);
+                font-size: 1.2rem;
+            }
+
+            .method-duration {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--primary-color);
+                font-weight: 500;
+                margin-bottom: 1rem;
+            }
+
+            .method-price {
+                background: var(--primary-color);
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 1.2rem;
+                display: inline-block;
+                margin-top: 1rem;
+            }
+
+            .method-details {
+                background: white;
+                border-radius: 20px;
+                padding: 2rem;
+                margin-top: 2rem;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                display: none;
+            }
+
+            .method-details.active {
+                display: block;
+                animation: fadeIn 0.5s ease-out;
+            }
+
+            .details-header {
+                margin-bottom: 2rem;
+            }
+
+            .details-header h3 {
+                color: var(--primary-color);
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .details-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+            }
+
+            .details-section {
+                background: var(--card-background);
+                padding: 1.5rem;
+                border-radius: 15px;
+                border: 1px solid rgba(9, 3, 95, 0.1);
+            }
+
+            .details-section h4 {
+                color: var(--primary-color);
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .details-section ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .details-section li {
+                margin-bottom: 0.8rem;
+                padding-left: 1.5rem;
+                position: relative;
+            }
+
+            .details-section li::before {
+                content: '•';
+                color: var(--primary-color);
+                position: absolute;
+                left: 0;
+                font-size: 1.2rem;
+            }
+
+            .booking-form {
+                background: white;
+                padding: 2rem;
+                border-radius: 20px;
+                margin-top: 2rem;
+                box-shadow: 0 10px 30px var(--shadow-color);
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: var(--text-color);
+                font-weight: 500;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 0.8rem;
+                border: 1px solid rgba(9, 3, 95, 0.1);
+                border-radius: 10px;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .form-group input:focus,
+            .form-group select:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(9, 3, 95, 0.1);
+            }
+
+            .submit-btn {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                width: 100%;
+            }
+
+            .submit-btn:hover {
+                background: var(--secondary-color);
+                transform: translateY(-2px);
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @media (max-width: 768px) {
+                .prediction-header {
+                    padding: 2rem 1rem;
+                    margin: 1rem auto 2rem;
+                }
+
+                .prediction-header h1 {
+                    font-size: 2rem;
+                }
+
+                .method-card {
+                    margin: 0 1rem;
+                }
+
+                .method-details {
+                    margin: 1rem;
+                }
+
+                .details-content {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .booking-btn {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                width: 100%;
+                margin-top: 1rem;
+                font-weight: 500;
+            }
+
+            .booking-btn:hover {
+                background: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(9, 3, 95, 0.2);
+            }
+
+            /* Modal styles */
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                backdrop-filter: blur(8px);
+                padding: 1rem;
+            }
+
+            .modal-overlay.active {
+                display: flex;
+                opacity: 1;
+            }
+
+            .modal-container {
+                background: white;
+                border-radius: 30px;
+                width: 90%;
+                max-width: 600px;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                transform: scale(0.95) translateY(20px);
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.8);
+            }
+
+            .modal-overlay.active .modal-container {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+
+            .modal-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                color: var(--primary-color);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 2;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .modal-close:hover {
+                transform: rotate(90deg) scale(1.1);
+                background: var(--primary-color);
+                color: white;
+                box-shadow: 0 6px 20px rgba(9, 3, 95, 0.2);
+            }
+
+            .modal-content {
+                padding: 2.5rem;
+            }
+
+            .modal-header {
+                margin-bottom: 2rem;
+                text-align: center;
+                position: relative;
+                padding-bottom: 1.5rem;
+                border-bottom: 1px solid rgba(9, 3, 95, 0.1);
+            }
+
+            .modal-header h3 {
+                color: var(--primary-color);
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
+                font-weight: 700;
+            }
+
+            .modal-header p {
+                color: var(--text-color);
+                font-size: 1.1rem;
+                line-height: 1.6;
+                opacity: 0.9;
+            }
+
+            .booking-form {
+                background: rgba(9, 3, 95, 0.02);
+                padding: 2rem;
+                border-radius: 20px;
+                border: 1px solid rgba(9, 3, 95, 0.05);
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.8rem;
+                color: var(--primary-color);
+                font-weight: 500;
+                font-size: 1.1rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 1rem;
+                border: 2px solid rgba(9, 3, 95, 0.1);
+                border-radius: 15px;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                background: white;
+            }
+
+            .form-group input:focus,
+            .form-group select:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 4px rgba(9, 3, 95, 0.1);
+            }
+
+            .form-group input::placeholder,
+            .form-group textarea::placeholder {
+                color: rgba(9, 3, 95, 0.4);
+            }
+
+            .submit-btn {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 1.2rem 2rem;
+                font-size: 1.2rem;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100%;
+                font-weight: 600;
+                margin-top: 1rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .submit-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transform: translateX(-100%);
+                transition: transform 0.6s ease;
+            }
+
+            .submit-btn:hover {
+                background: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(9, 3, 95, 0.2);
+            }
+
+            .submit-btn:hover::before {
+                transform: translateX(100%);
+            }
+
+            .submit-btn:active {
+                transform: translateY(0);
+            }
+
+            /* Стили для скроллбара в модальном окне */
+            .modal-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .modal-container::-webkit-scrollbar-track {
+                background: rgba(9, 3, 95, 0.05);
+                border-radius: 4px;
+            }
+
+            .modal-container::-webkit-scrollbar-thumb {
+                background: rgba(9, 3, 95, 0.2);
+                border-radius: 4px;
+            }
+
+            .modal-container::-webkit-scrollbar-thumb:hover {
+                background: rgba(9, 3, 95, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                .modal-content {
+                    padding: 1.5rem;
+                }
+
+                .modal-header h3 {
+                    font-size: 1.8rem;
+                }
+
+                .booking-form {
+                    padding: 1.5rem;
+                }
+
+                .form-group input,
+                .form-group select,
+                .form-group textarea {
+                    padding: 0.8rem;
+                    font-size: 1rem;
+                }
+
+                .submit-btn {
+                    padding: 1rem 1.5rem;
+                    font-size: 1.1rem;
+                }
+            }
+
+            /* Обновленные стили для мобильной версии */
+            @media (max-width: 768px) {
+                /* Навигация */
+                .navbar {
+                    padding: 0.8rem 1rem;
+                }
+
+                .logo {
+                    font-size: 1.3rem;
+                }
+
+                .nav-links {
+                    position: fixed;
+                    top: 0;
+                    right: -100%;
+                    width: 85%;
+                    max-width: 320px;
+                    height: 100vh;
+                    background: rgba(255, 255, 255, 0.98);
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    padding: 5rem 2rem 2rem;
+                    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: -5px 0 15px rgba(9, 3, 95, 0.1);
+                    backdrop-filter: blur(10px);
+                    z-index: 1000;
+                }
+
+                .nav-links.active {
+                    right: 0;
+                }
+
+                .nav-links a {
+                    font-size: 1.2rem;
+                    padding: 1rem 0;
+                    width: 100%;
+                    text-align: left;
+                    border-bottom: 1px solid rgba(9, 3, 95, 0.1);
+                }
+
+                .burger-menu {
+                    display: flex;
+                    z-index: 1001;
+                }
+
+                /* Заголовок секции */
+                .prediction-header {
+                    margin: 1rem auto 2rem;
+                    padding: 2rem 1rem;
+                }
+
+                .prediction-header h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .prediction-header p {
+                    font-size: 1rem;
+                    line-height: 1.5;
+                }
+
+                /* Карточки методов */
+                .divination-methods {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    padding: 0 1rem;
+                }
+
+                .method-card {
+                    margin: 0;
+                    transform: none;
+                }
+
+                .method-card:hover {
+                    transform: translateY(-5px);
+                }
+
+                .method-image {
+                    height: 200px;
+                }
+
+                .method-info {
+                    padding: 1.5rem;
+                }
+
+                .method-title {
+                    font-size: 1.5rem;
+                }
+
+                .method-description {
+                    font-size: 1rem;
+                    margin-bottom: 1rem;
+                }
+
+                .method-features {
+                    margin: 1rem 0;
+                }
+
+                .method-features li {
+                    font-size: 0.95rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                .method-price {
+                    font-size: 1.1rem;
+                    padding: 0.7rem 1.2rem;
+                }
+
+                .booking-btn {
+                    padding: 0.8rem 1.2rem;
+                    font-size: 1rem;
+                }
+
+                /* Модальное окно */
+                .modal-container {
+                    width: 95%;
+                    max-height: 95vh;
+                    margin: 1rem;
+                }
+
+                .modal-content {
+                    padding: 1.5rem;
+                }
+
+                .modal-header {
+                    margin-bottom: 1.5rem;
+                    padding-bottom: 1rem;
+                }
+
+                .modal-header h3 {
+                    font-size: 1.6rem;
+                }
+
+                .modal-header p {
+                    font-size: 1rem;
+                }
+
+                .booking-form {
+                    padding: 1.2rem;
+                }
+
+                .form-group {
+                    margin-bottom: 1.2rem;
+                }
+
+                .form-group label {
+                    font-size: 1rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .form-group input,
+                .form-group select,
+                .form-group textarea {
+                    padding: 0.8rem;
+                    font-size: 1rem;
+                    border-radius: 12px;
+                }
+
+                .submit-btn {
+                    padding: 1rem 1.5rem;
+                    font-size: 1.1rem;
+                }
+
+                /* Футер */
+                .footer {
+                    padding: 2rem 1rem;
+                }
+
+                .footer-text h3 {
+                    font-size: 1.5rem;
+                }
+
+                .footer-text span {
+                    font-size: 1.2rem;
+                }
+
+                .footer-contact,
+                .social-icons {
+                    flex-direction: column;
+                    gap: 1rem;
+                    text-align: center;
+                }
+            }
+
+            /* Дополнительные стили для очень маленьких экранов */
+            @media (max-width: 480px) {
+                .prediction-header {
+                    padding: 1.5rem 1rem;
+                }
+
+                .prediction-header h1 {
+                    font-size: 1.8rem;
+                }
+
+                .method-card {
+                    border-radius: 15px;
+                }
+
+                .method-image {
+                    height: 180px;
+                }
+
+                .method-info {
+                    padding: 1.2rem;
+                }
+
+                .method-title {
+                    font-size: 1.3rem;
+                }
+
+                .method-features li {
+                    font-size: 0.9rem;
+                }
+
+                .modal-container {
+                    width: 100%;
+                    margin: 0;
+                    border-radius: 20px;
+                }
+
+                .modal-content {
+                    padding: 1.2rem;
+                }
+
+                .modal-header h3 {
+                    font-size: 1.4rem;
+                }
+
+                .booking-form {
+                    padding: 1rem;
+                }
+
+                .form-group input,
+                .form-group select,
+                .form-group textarea {
+                    padding: 0.7rem;
+                    font-size: 0.95rem;
+                }
+
+                .submit-btn {
+                    padding: 0.9rem 1.2rem;
+                    font-size: 1rem;
+                }
+            }
+
+            /* Стили для планшетов */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .divination-methods {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1.5rem;
+                    padding: 0 1rem;
+                }
+
+                .prediction-header {
+                    margin: 2rem auto 3rem;
+                    padding: 3rem 2rem;
+                }
+
+                .prediction-header h1 {
+                    font-size: 2.5rem;
+                }
+
+                .method-card {
+                    transform: none;
+                }
+
+                .method-card:hover {
+                    transform: translateY(-5px);
+                }
+            }
+
+            /* Улучшения для мобильного меню */
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 999;
+                backdrop-filter: blur(5px);
+            }
+
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .burger-menu {
+                display: none;
+            }
+
+            @media (max-width: 768px) {
+                .burger-menu {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    width: 28px;
+                    height: 20px;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    z-index: 1001;
+                }
+
+                .burger-menu span {
+                    display: block;
+                    width: 100%;
+                    height: 2px;
+                    background: var(--primary-color);
+                    border-radius: 2px;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .burger-menu.active span:nth-child(1) {
+                    transform: translateY(9px) rotate(45deg);
+                }
+
+                .burger-menu.active span:nth-child(2) {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+
+                .burger-menu.active span:nth-child(3) {
+                    transform: translateY(-9px) rotate(-45deg);
+                }
+
+                body.menu-open {
+                    overflow: hidden;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display: none;">
+            <object data="icons.svg" type="image/svg+xml"></object>
+        </div>
+        <header class="navbar">
+            <a href="index.html" class="logo">
+                <svg class="icon" width="24" height="24">
+                    <use xlink:href="#icon-coffee"></use>
+                </svg>
+                <span>Resource</span>
+            </a>
+            <button class="burger-menu" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="menu.html">Меню</a>
+                <a href="predictions.html" class="active">Предсказания</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+            <div class="menu-overlay"></div>
+        </header>
+
+        <main class="prediction-section">
+            <div class="prediction-header fade-in">
+                <h1>Предсказания</h1>
+                <p>Откройте для себя древние практики гадания и предсказаний. Наши опытные специалисты помогут вам найти ответы на важные вопросы и получить мудрые советы для принятия решений.</p>
+            </div>
+
+            <div class="divination-methods">
+                <!-- Карты Таро -->
+                <div class="method-card" data-method="tarot">
+                    <div class="method-image">
+                        <img src="images\cards\гадание на таро.png" alt="Карты Таро" onerror="this.onerror=null; this.src='images/placeholder.jpg'; this.alt='Изображение временно недоступно'">
+                    </div>
+                    <div class="method-info">
+                        <h2 class="method-title">Карты Таро</h2>
+                        <p class="method-description">Древняя система предсказаний, использующая символические образы для раскрытия тайн прошлого, настоящего и будущего.</p>
+                        <ul class="method-features">
+                            <li><i class="fas fa-clock"></i> Длительность: 45 минут</li>
+                            <li><i class="fas fa-star"></i> Подходит для важных решений</li>
+                            <li><i class="fas fa-moon"></i> Глубокий анализ ситуации</li>
+                        </ul>
+                        <div class="method-duration">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Рекомендуется для серьезных вопросов</span>
+                        </div>
+                        <div class="method-price">50 BYN</div>
+                        <button class="booking-btn" data-method="tarot">Записаться</button>
+                    </div>
+                </div>
+
+                <div class="method-card" data-method="coffee">
+                    <div class="method-image">
+                        <img src="images\cards\гадание на кофейной гуще.png" alt="Гадание на кофейной гуще" onerror="this.onerror=null; this.src='images/placeholder.jpg'; this.alt='Изображение временно недоступно'">
+                    </div>
+                    <div class="method-info">
+                        <h2 class="method-title">Кофейная гуща</h2>
+                        <p class="method-description">Традиционный метод гадания, пришедший с Ближнего Востока. Узоры кофейной гущи создают уникальные символы, рассказывающие о вашем будущем.</p>
+                        <ul class="method-features">
+                            <li><i class="fas fa-clock"></i> Длительность: 30 минут</li>
+                            <li><i class="fas fa-mug-hot"></i> Включает чашку кофе</li>
+                            <li><i class="fas fa-eye"></i> Подробная интерпретация</li>
+                        </ul>
+                        <div class="method-duration">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Идеально для ежедневных вопросов</span>
+                        </div>
+                        <div class="method-price">33 BYN</div>
+                        <button class="booking-btn" data-method="coffee">Записаться</button>
+                    </div>
+                </div>
+
+                <div class="method-card" data-method="runes">
+                    <div class="method-image">
+                        <img src="images\cards\гадание на рунах.png" alt="Руны" onerror="this.onerror=null; this.src='images/placeholder.jpg'; this.alt='Изображение временно недоступно'">
+                    </div>
+                    <div class="method-info">
+                        <h2 class="method-title">Руны</h2>
+                        <p class="method-description">Древняя система символов, используемая скандинавскими народами. Каждая руна несет в себе мощную энергию и глубокий смысл.</p>
+                        <ul class="method-features">
+                            <li><i class="fas fa-clock"></i> Длительность: 40 минут</li>
+                            <li><i class="fas fa-compass"></i> Направление и совет</li>
+                            <li><i class="fas fa-book"></i> Древняя мудрость</li>
+                        </ul>
+                        <div class="method-duration">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Для поиска жизненного пути</span>
+                        </div>
+                        <div class="method-price">45 BYN</div>
+                        <button class="booking-btn" data-method="runes">Записаться</button>
+                    </div>
+                </div>
+
+                <div class="method-card" data-method="crystals">
+                    <div class="method-image">
+                        <img src="images\cards\гадание на кристаллах.png" alt="Кристаллы" onerror="this.onerror=null; this.src='images/placeholder.jpg'; this.alt='Изображение временно недоступно'">
+                    </div>
+                    <div class="method-info">
+                        <h2 class="method-title">Кристаллы</h2>
+                        <p class="method-description">Гадание с помощью кристаллов основано на древней мудрости о целительных и магических свойствах камней.</p>
+                        <ul class="method-features">
+                            <li><i class="fas fa-clock"></i> Длительность: 35 минут</li>
+                            <li><i class="fas fa-gem"></i> Энергетический анализ</li>
+                            <li><i class="fas fa-heart"></i> Исцеление и гармония</li>
+                        </ul>
+                        <div class="method-duration">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Для баланса и гармонии</span>
+                        </div>
+                        <div class="method-price">40 BYN</div>
+                        <button class="booking-btn" data-method="crystals">Записаться</button>
+                    </div>
+                </div>
+
+                <div class="method-card" data-method="tea">
+                    <div class="method-image">
+                        <img src="images\cards\гадания на чайных листьях.png" alt="Чайные листья" onerror="this.onerror=null; this.src='images/placeholder.jpg'; this.alt='Изображение временно недоступно'">
+                    </div>
+                    <div class="method-info">
+                        <h2 class="method-title">Чайные листья</h2>
+                        <p class="method-description">Древняя практика гадания, пришедшая из Китая. Узоры чайных листьев создают уникальные символы, рассказывающие о вашем будущем.</p>
+                        <ul class="method-features">
+                            <li><i class="fas fa-clock"></i> Длительность: 30 минут</li>
+                            <li><i class="fas fa-leaf"></i> Включает чашку чая</li>
+                            <li><i class="fas fa-book-open"></i> Детальная интерпретация</li>
+                        </ul>
+                        <div class="method-duration">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Для повседневных вопросов</span>
+                        </div>
+                        <div class="method-price">35 BYN</div>
+                        <button class="booking-btn" data-method="tea">Записаться</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-details" id="methodDetails">
+            </div>
+
+            <div class="modal-overlay" id="bookingModal">
+                <div class="modal-container">
+                    <button class="modal-close" aria-label="Закрыть">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Запись на гадание</h3>
+                            <p id="modalMethodDescription"></p>
+                        </div>
+                        <form id="bookingForm" class="booking-form">
+                            <div class="form-group">
+                                <label for="name">Ваше имя</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Телефон</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Дата</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Время</label>
+                                <input type="time" id="time" name="time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="question">Ваш вопрос (необязательно)</label>
+                                <textarea id="question" name="question" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Записаться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-text">
+                <h3 id="footerSlogan">Раскрой свою судьбу<br><span>Через магию кофе</span></h3>
+            </div>
+            <div class="footer-contact" id="footerContact">
+            </div>
+            <div class="social-icons" id="socialIcons">
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                
+                window.methodData = {
+                    tarot: {
+                        title: 'Карты Таро',
+                        description: 'Древняя система предсказаний, использующая символические образы для раскрытия тайн прошлого, настоящего и будущего.'
+                    },
+                    coffee: {
+                        title: 'Гадание на кофейной гуще',
+                        description: 'Традиционный метод гадания, пришедший с Ближнего Востока. Узоры кофейной гущи создают уникальные символы, рассказывающие о вашем будущем.'
+                    },
+                    runes: {
+                        title: 'Руны',
+                        description: 'Древняя система символов, используемая скандинавскими народами. Каждая руна несет в себе мощную энергию и глубокий смысл.'
+                    },
+                    crystals: {
+                        title: 'Кристаллы',
+                        description: 'Гадание с помощью кристаллов основано на древней мудрости о целительных и магических свойствах камней.'
+                    },
+                    tea: {
+                        title: 'Чайные листья',
+                        description: 'Древняя практика гадания, пришедшая из Китая. Узоры чайных листьев создают уникальные символы, рассказывающие о вашем будущем.'
+                    }
+                };
+
+                
+                const modalOverlay = document.getElementById('bookingModal');
+                const modalClose = document.querySelector('.modal-close');
+                const bookingButtons = document.querySelectorAll('.booking-btn');
+                const modalMethodDescription = document.getElementById('modalMethodDescription');
+                const bookingForm = document.getElementById('bookingForm');
+                const modalTitle = document.querySelector('.modal-header h3');
+
+                function openModal(method) {
+                    const methodData = window.methodData[method];
+                    if (methodData) {
+                        modalTitle.textContent = `Запись на ${methodData.title}`;
+                        modalMethodDescription.textContent = methodData.description;
+                        
+                        modalOverlay.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            modalOverlay.classList.add('active');
+                        });
+                        
+                        document.body.style.overflow = 'hidden';
+                        const dateInput = document.getElementById('date');
+                        const today = new Date().toISOString().split('T')[0];
+                        dateInput.min = today;
+                        
+                        const timeInput = document.getElementById('time');
+                        timeInput.min = '10:00';
+                        timeInput.max = '20:00';
+                    }
+                }
+
+                function closeModal() {
+                    modalOverlay.classList.remove('active');
+                    setTimeout(() => {
+                        modalOverlay.style.display = 'none';
+                        document.body.style.overflow = '';
+                        bookingForm.reset();
+                    }, 400);
+                }
+
+                bookingButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const method = button.getAttribute('data-method');
+                        openModal(method);
+                    });
+                });
+
+                modalClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    closeModal();
+                });
+
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+
+                bookingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(bookingForm);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    const selectedDate = new Date(data.date);
+                    const selectedTime = data.time;
+                    const now = new Date();
+                    
+                    if (selectedDate < now.setHours(0,0,0,0)) {
+                        alert('Пожалуйста, выберите дату не раньше сегодняшнего дня');
+                        return;
+                    }
+                    
+                    if (selectedTime < '10:00' || selectedTime > '20:00') {
+                        alert('Пожалуйста, выберите время между 10:00 и 20:00');
+                        return;
+                    }
+                    
+                    console.log('Form submitted:', data);
+                    
+                    const submitBtn = bookingForm.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Отправка...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Успешно отправлено!';
+                        submitBtn.style.background = '#4CAF50';
+                        
+                        setTimeout(() => {
+                            closeModal();
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            submitBtn.style.background = '';
+                        }, 1500);
+                    }, 1000);
+                });
+
+                document.querySelectorAll('.method-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('.booking-btn')) {
+                            e.stopPropagation();
+                        }
+                    });
+                });
+
+                const burgerMenu = document.querySelector('.burger-menu');
+                const navLinks = document.querySelector('.nav-links');
+                const menuOverlay = document.querySelector('.menu-overlay');
+                const body = document.body;
+
+                function toggleMenu() {
+                    burgerMenu.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    menuOverlay.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                }
+
+                burgerMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu();
+                });
+
+                menuOverlay.addEventListener('click', toggleMenu);
+
+                // Закрытие меню при клике на ссылку
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                // Закрытие меню при изменении размера окна
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+
+                // Предотвращение скролла при открытом меню
+                document.addEventListener('touchmove', (e) => {
+                    if (body.classList.contains('menu-open')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            });
+        </script>
+    </body>
+</html> 

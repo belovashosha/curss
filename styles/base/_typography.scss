@@ -1,0 +1,223 @@
+/* Typography Styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family-heading;
+    color: $primary-color;
+    line-height: 1.2;
+    margin-bottom: $spacing-md;
+}
+
+h1 {
+    font-size: $font-size-4xl;
+    font-weight: 700;
+    
+    @include responsive(md) {
+        font-size: calc($font-size-4xl * 1.2);
+    }
+}
+
+h2 {
+    font-size: $font-size-3xl;
+    font-weight: 600;
+    
+    @include responsive(md) {
+        font-size: calc($font-size-3xl * 1.1);
+    }
+}
+
+h3 {
+    font-size: $font-size-2xl;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: $font-size-xl;
+    font-weight: 500;
+}
+
+p {
+    margin-bottom: $spacing-md;
+    color: $text-color;
+    
+    &.lead {
+        font-size: $font-size-lg;
+        font-weight: 300;
+        line-height: 1.8;
+    }
+}
+
+.text-gradient {
+    @include text-gradient;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-light {
+    font-weight: 300;
+}
+
+.text-muted {
+    color: lighten($text-color, 20%);
+}
+
+.text-primary {
+    color: $primary-color;
+}
+
+.text-secondary {
+    color: $secondary-color;
+}
+
+.text-accent {
+    color: $accent-color;
+}
+
+/* Font Sizes */
+.text-sm {
+    font-size: $font-size-sm;
+}
+
+.text-base {
+    font-size: $font-size-base;
+}
+
+.text-lg {
+    font-size: $font-size-lg;
+}
+
+.text-xl {
+    font-size: $font-size-xl;
+}
+
+/* Line Heights */
+.leading-none {
+    line-height: 1;
+}
+
+.leading-tight {
+    line-height: 1.25;
+}
+
+.leading-normal {
+    line-height: 1.5;
+}
+
+.leading-loose {
+    line-height: 2;
+}
+
+/* Font Weights */
+.font-light {
+    font-weight: 300;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+/* Menu Typography */
+.menu-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    color: $primary-color;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+    
+    &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: $accent-color;
+        margin: $spacing-sm auto 0;
+    }
+}
+
+.menu-category {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: $primary-color;
+    margin: $spacing-xl 0 $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 2px solid $accent-color;
+}
+
+.menu-item-name {
+    font-size: $font-size-lg;
+    font-weight: 500;
+    color: $primary-color;
+    margin-bottom: $spacing-xs;
+}
+
+.menu-item-price {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $secondary-color;
+}
+
+.menu-item-description {
+    font-size: $font-size-base;
+    color: $text-color;
+    margin: $spacing-xs 0;
+}
+
+/* Prediction Typography */
+.prediction-title {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    
+    @include text-gradient;
+}
+
+.prediction-subtitle {
+    font-size: $font-size-xl;
+    color: $text-color;
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+}
+
+.prediction-card-title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+}
+
+.prediction-card-text {
+    font-size: $font-size-base;
+    color: $text-color;
+    line-height: 1.6;
+} 

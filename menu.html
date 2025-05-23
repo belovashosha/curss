@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Меню - Resource Coffee House</title>
+    <style>
+        :root {
+            --primary-color: #09035f;
+            --secondary-color: #1a0b8c;
+            --accent-color: #09035f;
+            --background-color: #F8F9FA;
+            --text-color: #666;
+            --card-background: linear-gradient(135deg, #e6e8ff, #d8daff);
+            --shadow-color: rgba(9, 3, 95, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin: 4rem auto;
+            max-width: 800px;
+            padding: 4rem 2rem;
+            background: var(--card-background);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transform: translateY(0);
+            transition: transform var(--transition-speed);
+            border: 1px solid rgba(9, 3, 95, 0.1);
+        }
+
+        .page-header:hover {
+            transform: translateY(-5px);
+        }
+
+        .page-header h1 {
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .menu-categories {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .menu-categories__list {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) transparent;
+        }
+
+        .menu-categories__list::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .menu-categories__list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .menu-categories__list::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .menu-categories__button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: white;
+            color: var(--text-color);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            white-space: nowrap;
+            font-size: 1rem;
+        }
+
+        .menu-categories__button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .menu-categories__button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .menu-categories__button i {
+            font-size: 1.1rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform var(--transition-speed);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item__image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .menu-item__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed);
+        }
+
+        .menu-item:hover .menu-item__image img {
+            transform: scale(1.05);
+        }
+
+        .menu-item__content {
+            padding: 1.5rem;
+        }
+
+        .menu-item__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item__title {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .menu-item__price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .menu-item__description {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .menu-item__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item__tags span {
+            background: var(--card-background);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .menu-item__energy {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .menu-item__button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--transition-speed);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .menu-item:hover .menu-item__button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item__button:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .menu-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-modal__content {
+            background: white;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform var(--transition-speed);
+        }
+
+        .menu-modal.active .menu-modal__content {
+            transform: translateY(0);
+        }
+
+        .menu-modal__close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--card-background);
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            transition: all var(--transition-speed);
+        }
+
+        .menu-modal__close:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .menu-modal__body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .menu-modal__image {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .menu-modal__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-modal__info {
+            padding-right: 1rem;
+        }
+
+        .menu-modal__info h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-modal__info .price {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .menu-modal__info .description {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .menu-modal__details h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-modal__details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+
+        .menu-modal__details li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .menu-modal__details li i {
+            color: var(--primary-color);
+        }
+
+        .menu-modal__energy {
+            background: var(--card-background);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .menu-modal__energy p {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-section {
+                padding: 1rem;
+            }
+
+            .page-header {
+                margin: 3rem auto 2rem;
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .menu-categories {
+                margin: 1rem 0;
+                padding: 0.8rem;
+            }
+
+            .menu-categories__button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .menu-item__image {
+                height: 180px;
+            }
+
+            .menu-modal__body {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .menu-modal__image {
+                height: 250px;
+            }
+
+            .menu-modal__info {
+                padding-right: 0;
+            }
+
+            .menu-modal__info h2 {
+                font-size: 1.8rem;
+            }
+
+            .menu-modal__info .price {
+                font-size: 1.3rem;
+            }
+
+            .menu-modal__info .description {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div style="display: none;">
+        <object data="icons.svg" type="image/svg+xml"></object>
+    </div>
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <svg class="icon" width="24" height="24">
+                <use xlink:href="#icon-coffee"></use>
+            </svg>
+            <span>Resource</span>
+        </a>
+        <button class="burger-menu" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-links">
+            <a href="index.html">Главная</a>
+            <a href="menu.html" class="active">Меню</a>
+            <a href="predictions.html">Предсказания</a>
+            <a href="about.html">О нас</a>
+            <a href="contacts.html">Контакты</a>
+        </nav>
+        <div class="menu-overlay"></div>
+    </header>
+
+    <main>
+        <section class="page-section">
+            <div class="page-header fade-in">
+                <h1>Наше меню</h1>
+                <p>Откройте для себя мир изысканных вкусов и ароматов в каждой чашке</p>
+            </div>
+
+            <!-- Навигация по категориям -->
+            <nav class="menu-categories fade-in">
+                <ul class="menu-categories__list">
+                    <li class="menu-categories__item">
+                        <button class="menu-categories__button active" data-category="all">
+                            <i class="fas fa-th-large"></i>
+                            Все
+                        </button>
+                    </li>
+                    <!-- Категории будут добавлены динамически -->
+                </ul>
+            </nav>
+
+            <!-- Сетка меню -->
+            <div class="menu-grid" id="menuGrid">
+                <!-- Элементы меню будут загружены динамически -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно -->
+    <div class="menu-modal" id="itemModal">
+        <div class="menu-modal__content">
+            <button class="menu-modal__close" aria-label="Закрыть">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="menu-modal__body">
+                <!-- Содержимое модального окна будет загружено динамически -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="footer-text">
+            <h3 id="footerSlogan">Раскрой свою судьбу<br><span>Через магию кофе</span></h3>
+        </div>
+        <div class="footer-contact" id="footerContact">
+            <!-- Здесь будут динамически добавлены контакты -->
+        </div>
+        <div class="social-icons" id="socialIcons">
+            <!-- Здесь будут динамически добавлены социальные сети -->
+        </div>
+    </footer>
+
+    <!-- Подключаем данные меню -->
+    <script src="js/menu-data.js"></script>
+    <script>
+        // Глобальная переменная для хранения объединенных данных
+        let combinedMenuData = {
+            categories: [],
+            items: []
+        };
+
+        // Функция для преобразования XML категории в объект
+        function xmlCategoryToObject(xmlCategory) {
+            return {
+                id: xmlCategory.getAttribute('id'),
+                name: xmlCategory.textContent,
+                icon: xmlCategory.getAttribute('icon')
+            };
+        }
+
+        // Функция для преобразования XML элемента меню в объект
+        function xmlItemToObject(xmlItem) {
+            const tags = Array.from(xmlItem.getElementsByTagName('tag')).map(tag => tag.textContent);
+            const ingredients = Array.from(xmlItem.getElementsByTagName('ingredient')).map(ing => ing.textContent);
+            
+            return {
+                id: parseInt(xmlItem.getAttribute('id')),
+                name: xmlItem.getElementsByTagName('name')[0].textContent,
+                category: xmlItem.getElementsByTagName('category')[0].textContent,
+                price: parseFloat(xmlItem.getElementsByTagName('price')[0].textContent),
+                description: xmlItem.getElementsByTagName('description')[0].textContent,
+                image: xmlItem.getElementsByTagName('image')[0].textContent,
+                tags: tags,
+                energy: xmlItem.getElementsByTagName('energy')[0].textContent,
+                ingredients: ingredients
+            };
+        }
+
+        // Функция для объединения данных из обоих источников
+        function combineMenuData(jsData, xmlData) {
+            // Объединяем категории
+            const categories = new Map();
+            
+            // Добавляем категории из JavaScript
+            jsData.categories.forEach(cat => {
+                categories.set(cat.id, cat);
+            });
+            
+            // Добавляем категории из XML
+            const xmlCategories = xmlData.getElementsByTagName('category');
+            Array.from(xmlCategories).forEach(cat => {
+                if (!categories.has(cat.getAttribute('id'))) {
+                    categories.set(cat.getAttribute('id'), xmlCategoryToObject(cat));
+                }
+            });
+            
+            combinedMenuData.categories = Array.from(categories.values());
+
+            // Объединяем элементы меню
+            const items = new Map();
+            
+            // Добавляем элементы из JavaScript
+            jsData.items.forEach(item => {
+                items.set(item.id, item);
+            });
+            
+            // Добавляем элементы из XML
+            const xmlItems = xmlData.getElementsByTagName('item');
+            Array.from(xmlItems).forEach(item => {
+                const itemId = parseInt(item.getAttribute('id'));
+                if (!items.has(itemId)) {
+                    items.set(itemId, xmlItemToObject(item));
+                }
+            });
+            
+            combinedMenuData.items = Array.from(items.values());
+        }
+
+        // Функция для загрузки XML данных
+        async function loadXMLData() {
+            try {
+                const response = await fetch('data/menu.xml');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                
+                // Проверяем успешность парсинга
+                if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                    throw new Error("XML parsing error");
+                }
+                
+                console.log("XML data loaded successfully");
+                return xmlDoc;
+            } catch (error) {
+                console.error("Error loading XML data:", error);
+                return null;
+            }
+        }
+
+        // Инициализация категорий
+        function initCategories() {
+            const categoriesList = document.querySelector('.menu-categories__list');
+            const allButton = categoriesList.querySelector('[data-category="all"]');
+            
+            // Добавляем кнопки категорий из объединенных данных
+            combinedMenuData.categories.forEach(category => {
+                const li = document.createElement('li');
+                li.className = 'menu-categories__item';
+                li.innerHTML = `
+                    <button class="menu-categories__button" data-category="${category.id}">
+                        <i class="fas ${category.icon}"></i>
+                        ${category.name}
+                    </button>
+                `;
+                categoriesList.insertBefore(li, categoriesList.lastElementChild);
+            });
+        }
+
+        // Отрисовка меню
+        function renderMenu(category = 'all') {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = ''; // Очищаем сетку
+
+            const items = category === 'all' 
+                ? combinedMenuData.items 
+                : combinedMenuData.items.filter(item => item.category === category);
+
+            items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item fade-in';
+                menuItem.dataset.category = item.category;
+
+                menuItem.innerHTML = `
+                    <div class="menu-item__image">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.src='fotki/placeholder.jpg'">
+                    </div>
+                    <div class="menu-item__content">
+                        <div class="menu-item__header">
+                            <h3 class="menu-item__title">${item.name}</h3>
+                            <span class="menu-item__price">${item.price} BYN</span>
+                        </div>
+                        <p class="menu-item__description">${item.description}</p>
+                        <div class="menu-item__tags">
+                            ${item.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                        <p class="menu-item__energy">${item.energy}</p>
+                    </div>
+                    <button class="menu-item__button" aria-label="Подробнее">
+                        <i class="fas fa-info"></i>
+                    </button>
+                `;
+
+                menuItem.addEventListener('click', () => showModal(item));
+                menuGrid.appendChild(menuItem);
+            });
+        }
+
+        // Показать модальное окно
+        function showModal(item) {
+            const modal = document.getElementById('itemModal');
+            const modalBody = modal.querySelector('.menu-modal__body');
+
+            modalBody.innerHTML = `
+                <div class="menu-modal__image">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='fotki/placeholder.jpg'">
+                </div>
+                <div class="menu-modal__info">
+                    <h2>${item.name}</h2>
+                    <div class="price">${item.price} BYN</div>
+                    <p class="description">${item.description}</p>
+                    
+                    <div class="menu-modal__details">
+                        <h3>Ингредиенты</h3>
+                        <ul>
+                            ${item.ingredients.map(ing => `
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    ${ing}
+                                </li>
+                            `).join('')}
+                        </ul>
+
+                        <h3>Теги</h3>
+                        <div class="menu-item__tags">
+                            ${item.tags.map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+
+                        <div class="menu-modal__energy">
+                            <p>${item.energy}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Загружаем XML данные
+            const xmlData = await loadXMLData();
+            if (xmlData) {
+                // Объединяем данные из обоих источников
+                combineMenuData(menuData, xmlData);
+                console.log("Menu data combined successfully");
+                console.log("Total categories:", combinedMenuData.categories.length);
+                console.log("Total items:", combinedMenuData.items.length);
+            } else {
+                // Если XML не загрузился, используем только JavaScript данные
+                combinedMenuData = menuData;
+                console.log("Using JavaScript data only");
+            }
+
+            // Инициализируем интерфейс
+            initCategories();
+            renderMenu();
+            
+            // Фильтрация по категориям
+            const categoryButtons = document.querySelectorAll('.menu-categories__button');
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderMenu(btn.dataset.category);
+                });
+            });
+
+            // Обработка модального окна
+            const modal = document.getElementById('itemModal');
+            const closeBtn = modal.querySelector('.menu-modal__close');
+            
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Закрытие модального окна по Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Мобильное меню
+            const burger = document.querySelector('.burger-menu');
+            const nav = document.querySelector('.nav-links');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            
+            function toggleMenu() {
+                burger.classList.toggle('active');
+                nav.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+
+            burger.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

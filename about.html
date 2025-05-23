@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <title>О нас - Resource Coffee House</title>
+        <style>
+            :root {
+                --primary-color: #09035f;
+                --secondary-color: #1a0b8c;
+                --accent-color: #09035f;
+                --background-color: #F8F9FA;
+                --text-color: #666;
+                --card-background: linear-gradient(135deg, #e6e8ff, #d8daff);
+                --shadow-color: rgba(9, 3, 95, 0.1);
+                --transition-speed: 0.3s;
+            }
+
+            body {
+                background-color: var(--background-color);
+                color: var(--text-color);
+                font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-section {
+                padding: 2rem;
+                max-width: 1400px;
+                margin: 0 auto;
+                margin-top: 80px;
+            }
+
+            .page-header {
+                text-align: center;
+                margin: 4rem auto;
+                max-width: 800px;
+                padding: 4rem 2rem;
+                background: var(--card-background);
+                border-radius: 30px;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                transform: translateY(0);
+                transition: transform var(--transition-speed);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+            }
+
+            .page-header:hover {
+                transform: translateY(-5px);
+            }
+
+            .page-header h1 {
+                color: var(--primary-color);
+                font-size: 3rem;
+                margin-bottom: 1.5rem;
+                font-weight: 700;
+            }
+
+            .page-header p {
+                color: var(--text-color);
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+
+            .story-card {
+                background: var(--card-background);
+                border-radius: 30px;
+                padding: 3rem;
+                margin: 4rem auto;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .story-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(90deg, 
+                    #8B5CF6, 
+                    #7C3AED, 
+                    #6D28D9, 
+                    #5B21B6, 
+                    #8B5CF6);
+                background-size: 200% 100%;
+                animation: gradientMove 8s linear infinite;
+            }
+
+            @keyframes gradientMove {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .story-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                align-items: center;
+            }
+
+            .story-image {
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 15px 40px var(--shadow-color);
+                position: relative;
+            }
+
+            .story-image::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(to bottom, 
+                    rgba(255, 255, 255, 0.1),
+                    rgba(9, 3, 95, 0.2));
+                pointer-events: none;
+            }
+
+            .story-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .story-image:hover img {
+                transform: scale(1.05);
+            }
+
+            .story-text {
+                padding: 2rem;
+            }
+
+            .story-text h2 {
+                color: var(--primary-color);
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+                position: relative;
+            }
+
+            .story-text h2::after {
+                content: '✨';
+                position: absolute;
+                right: -40px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 2rem;
+                animation: sparkle 2s infinite;
+            }
+
+            @keyframes sparkle {
+                0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+                50% { opacity: 0.5; transform: translateY(-50%) scale(1.2); }
+            }
+
+            .story-text p {
+                color: var(--text-color);
+                font-size: 1.1rem;
+                line-height: 1.8;
+                margin-bottom: 1.5rem;
+            }
+
+            .values-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .value-card {
+                background: white;
+                border-radius: 20px;
+                padding: 2rem;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .value-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, 
+                    rgba(9, 3, 95, 0.05), 
+                    rgba(26, 11, 140, 0.1));
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .value-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(9, 3, 95, 0.15);
+            }
+
+            .value-card:hover::before {
+                opacity: 1;
+            }
+
+            .value-card i {
+                font-size: 2.5rem;
+                color: var(--primary-color);
+                margin-bottom: 1.5rem;
+                transition: transform 0.3s ease;
+            }
+
+            .value-card:hover i {
+                transform: scale(1.1);
+            }
+
+            .value-card h3 {
+                color: var(--primary-color);
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .value-card p {
+                color: var(--text-color);
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin: 0;
+            }
+
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .team-card {
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px var(--shadow-color);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+                position: relative;
+            }
+
+            .team-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(9, 3, 95, 0.2);
+            }
+
+            .member-image {
+                height: 300px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .member-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .team-card:hover .member-image img {
+                transform: scale(1.1);
+            }
+
+            .member-info {
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .member-info h3 {
+                color: var(--primary-color);
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .member-role {
+                color: var(--secondary-color);
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            .member-info p {
+                color: var(--text-color);
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 0;
+            }
+
+            .achievements-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .achievement-card {
+                background: white;
+                border-radius: 20px;
+                padding: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                border: 1px solid rgba(9, 3, 95, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .achievement-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, 
+                    rgba(9, 3, 95, 0.05), 
+                    rgba(26, 11, 140, 0.1));
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .achievement-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(9, 3, 95, 0.15);
+            }
+
+            .achievement-card:hover::before {
+                opacity: 1;
+            }
+
+            .achievement-icon {
+                width: 60px;
+                height: 60px;
+                background: var(--card-background);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.8rem;
+                color: var(--primary-color);
+                flex-shrink: 0;
+                transition: transform 0.3s ease;
+            }
+
+            .achievement-card:hover .achievement-icon {
+                transform: scale(1.1);
+            }
+
+            .achievement-content h3 {
+                color: var(--primary-color);
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .achievement-content p {
+                color: var(--text-color);
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            @media (max-width: 768px) {
+                .story-content {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+
+                .story-image {
+                    height: 300px;
+                    order: -1;
+                }
+
+                .page-header h1 {
+                    font-size: 2.5rem;
+                }
+
+                .story-text h2 {
+                    font-size: 2rem;
+                }
+
+                .story-text h2::after {
+                    display: none;
+                }
+
+                .team-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .member-image {
+                    height: 250px;
+                }
+            }
+
+            /* Animation classes */
+            .fade-in {
+                animation: fadeIn 0.5s ease-in;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .slide-in {
+                animation: slideIn 0.5s ease-out;
+            }
+
+            @keyframes slideIn {
+                from { transform: translateX(-20px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+
+            /* Добавляем стили для мобильных устройств */
+            @media (max-width: 768px) {
+                .page-section {
+                    padding: 1rem;
+                    margin-top: 60px;
+                }
+
+                .page-header {
+                    margin: 2rem auto;
+                    padding: 2rem 1.5rem;
+                    border-radius: 20px;
+                }
+
+                .page-header h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .page-header p {
+                    font-size: 1rem;
+                    line-height: 1.5;
+                }
+
+                .story-card {
+                    margin: 2rem auto;
+                    padding: 1.5rem;
+                    border-radius: 20px;
+                }
+
+                .story-content {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .story-image {
+                    height: 250px;
+                    border-radius: 15px;
+                    order: -1;
+                }
+
+                .story-text {
+                    padding: 1rem 0;
+                }
+
+                .story-text h2 {
+                    font-size: 1.8rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .story-text p {
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                }
+
+                .values-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    margin-top: 1.5rem;
+                }
+
+                .value-card {
+                    padding: 1.5rem;
+                    border-radius: 15px;
+                }
+
+                .value-card i {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .value-card h3 {
+                    font-size: 1.3rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                .value-card p {
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                }
+
+                .team-grid {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                    margin-top: 1.5rem;
+                }
+
+                .team-card {
+                    border-radius: 15px;
+                }
+
+                .member-image {
+                    height: 280px;
+                }
+
+                .member-info {
+                    padding: 1.5rem;
+                }
+
+                .member-info h3 {
+                    font-size: 1.4rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .member-role {
+                    font-size: 1rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                .member-info p {
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                }
+
+                .achievements-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    margin-top: 1.5rem;
+                }
+
+                .achievement-card {
+                    padding: 1.5rem;
+                    border-radius: 15px;
+                    gap: 1rem;
+                }
+
+                .achievement-icon {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .achievement-icon i {
+                    font-size: 1.5rem;
+                }
+
+                .achievement-content h3 {
+                    font-size: 1.2rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .achievement-content p {
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                }
+
+                /* Улучшенные анимации для мобильных устройств */
+                .fade-in {
+                    animation: fadeInMobile 0.4s ease-out;
+                }
+
+                @keyframes fadeInMobile {
+                    from { 
+                        opacity: 0; 
+                        transform: translateY(15px); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translateY(0); 
+                    }
+                }
+
+                .slide-in {
+                    animation: slideInMobile 0.4s ease-out;
+                }
+
+                @keyframes slideInMobile {
+                    from { 
+                        transform: translateX(-15px); 
+                        opacity: 0; 
+                    }
+                    to { 
+                        transform: translateX(0); 
+                        opacity: 1; 
+                    }
+                }
+
+                /* Улучшенные стили для скроллбара */
+                .story-content,
+                .values-grid,
+                .team-grid,
+                .achievements-grid {
+                    scrollbar-width: thin;
+                    scrollbar-color: var(--primary-color) transparent;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .story-content::-webkit-scrollbar,
+                .values-grid::-webkit-scrollbar,
+                .team-grid::-webkit-scrollbar,
+                .achievements-grid::-webkit-scrollbar {
+                    width: 3px;
+                    height: 3px;
+                }
+
+                .story-content::-webkit-scrollbar-track,
+                .values-grid::-webkit-scrollbar-track,
+                .team-grid::-webkit-scrollbar-track,
+                .achievements-grid::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                .story-content::-webkit-scrollbar-thumb,
+                .values-grid::-webkit-scrollbar-thumb,
+                .team-grid::-webkit-scrollbar-thumb,
+                .achievements-grid::-webkit-scrollbar-thumb {
+                    background-color: var(--primary-color);
+                    border-radius: 1.5px;
+                }
+            }
+
+            /* Дополнительные стили для очень маленьких экранов */
+            @media (max-width: 480px) {
+                .page-header {
+                    margin: 1.5rem auto;
+                    padding: 1.5rem 1rem;
+                }
+
+                .page-header h1 {
+                    font-size: 1.8rem;
+                }
+
+                .page-header p {
+                    font-size: 0.95rem;
+                }
+
+                .story-card {
+                    margin: 1.5rem auto;
+                    padding: 1.2rem;
+                }
+
+                .story-image {
+                    height: 200px;
+                }
+
+                .story-text h2 {
+                    font-size: 1.6rem;
+                }
+
+                .value-card {
+                    padding: 1.2rem;
+                }
+
+                .value-card i {
+                    font-size: 1.8rem;
+                }
+
+                .value-card h3 {
+                    font-size: 1.2rem;
+                }
+
+                .member-image {
+                    height: 240px;
+                }
+
+                .member-info {
+                    padding: 1.2rem;
+                }
+
+                .member-info h3 {
+                    font-size: 1.3rem;
+                }
+
+                .achievement-card {
+                    padding: 1.2rem;
+                }
+
+                .achievement-icon {
+                    width: 45px;
+                    height: 45px;
+                }
+
+                .achievement-icon i {
+                    font-size: 1.3rem;
+                }
+
+                .achievement-content h3 {
+                    font-size: 1.1rem;
+                }
+            }
+
+            /* Оптимизация для устройств с высоким DPI */
+            @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+                .story-image img,
+                .member-image img {
+                    image-rendering: -webkit-optimize-contrast;
+                    image-rendering: crisp-edges;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display: none;">
+            <object data="icons.svg" type="image/svg+xml"></object>
+        </div>
+        <header class="navbar">
+            <a href="index.html" class="logo">
+                <svg class="icon" width="24" height="24">
+                    <use xlink:href="#icon-coffee"></use>
+                </svg>
+                <span>Resource</span>
+            </a>
+            <button class="burger-menu" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="menu.html">Меню</a>
+                <a href="predictions.html">Предсказания</a>
+                <a href="about.html" class="active">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+            <div class="menu-overlay"></div>
+        </header>
+
+        <main>
+            <section class="page-section">
+                <div class="page-header fade-in">
+                    <h1>О нашей кофейне</h1>
+                    <p>Место, где традиции кофейной культуры встречаются с современным искусством</p>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-content">
+                        <div class="story-image">
+                            <img src="images\cards\интерьер.png" alt="Интерьер кофейни" onerror="this.src='https://via.placeholder.com/600x400?text=Cafe+Interior'">
+                        </div>
+                        <div class="story-text">
+                            <h2>Наша история</h2>
+                            <p>Resource Coffee House открыла свои двери в 2020 году, став первым местом в Минске, где кофейная культура объединилась с искусством предсказаний. Наша история началась с простой идеи: создать пространство, где каждый посетитель может не только насладиться отличным кофе, но и прикоснуться к тайнам будущего.</p>
+                            <p>За эти годы мы выросли из маленькой кофейни в любимое место горожан, где каждый может найти что-то особенное для себя. Наша команда постоянно совершенствуется, изучая новые техники приготовления кофе и древние практики гадания.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <h2 class="text-center">Наши ценности</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <i class="fas fa-coffee"></i>
+                            <h3>Качество</h3>
+                            <p>Мы используем только отборные сорта кофе и свежие ингредиенты для приготовления наших напитков.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Традиции</h3>
+                            <p>Сохраняем и развиваем древние практики гадания, передавая их современному поколению.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Сообщество</h3>
+                            <p>Создаем пространство, где каждый может найти единомышленников и поделиться своим опытом.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-leaf"></i>
+                            <h3>Экологичность</h3>
+                            <p>Заботимся об окружающей среде, используя экологичные материалы и практики.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <h2 class="text-center">Наша команда</h2>
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <div class="member-image">
+                                <img src="images\cards\аня.png" alt="Анна - Главный бариста" onerror="this.src='https://via.placeholder.com/300x300?text=Team+Member'">
+                            </div>
+                            <div class="member-info">
+                                <h3>Анна</h3>
+                                <p class="member-role">Главный бариста</p>
+                                <p>Профессиональный бариста с 8-летним опытом. Специализируется на авторских рецептах и латте-арте.</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="member-image">
+                                <img src="images\cards\миша.png" alt="Михаил - Мастер предсказаний" onerror="this.src='https://via.placeholder.com/300x300?text=Team+Member'">
+                            </div>
+                            <div class="member-info">
+                                <h3>Михаил</h3>
+                                <p class="member-role">Мастер предсказаний</p>
+                                <p>Эксперт в области гадания на кофейной гуще с 15-летним стажем. Помог сотням людей найти свой путь.</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="member-image">
+                                <img src="images\cards\лена.png" alt="Елена - Кондитер" onerror="this.src='https://via.placeholder.com/300x300?text=Team+Member'">
+                            </div>
+                            <div class="member-info">
+                                <h3>Елена</h3>
+                                <p class="member-role">Кондитер</p>
+                                <p>Создает уникальные десерты, которые идеально дополняют наши кофейные напитки.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <h2 class="text-center">Наши достижения</h2>
+                    <div class="achievements-grid">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Лучшая кофейня 2023</h3>
+                                <p>Победитель городского конкурса "Кофейная столица"</p>
+                            </div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Топ-10 кофеен</h3>
+                                <p>Включены в список лучших кофеен Беларуси по версии Coffee Guide</p>
+                            </div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>10,000+ клиентов</h3>
+                                <p>Более 10 тысяч довольных посетителей за последний год</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-text">
+                <h3 id="footerSlogan">Раскрой свою судьбу<br><span>Через магию кофе</span></h3>
+            </div>
+            <div class="footer-contact" id="footerContact">
+                <!-- Здесь будут динамически добавлены контакты из XML -->
+            </div>
+            <div class="social-icons" id="socialIcons">
+                <!-- Здесь будут динамически добавлены социальные сети из XML -->
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const burgerMenu = document.querySelector('.burger-menu');
+                const navLinks = document.querySelector('.nav-links');
+                const menuOverlay = document.querySelector('.menu-overlay');
+                const body = document.body;
+
+                function toggleMenu() {
+                    burgerMenu.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    menuOverlay.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                }
+
+                burgerMenu.addEventListener('click', toggleMenu);
+                menuOverlay.addEventListener('click', toggleMenu);
+
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+
+                // Анимация появления элементов при скролле
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-in');
+                        }
+                    });
+                }, { 
+                    threshold: 0.1,
+                    rootMargin: '50px'
+                });
+
+                document.querySelectorAll('.story-card, .value-card, .team-card, .achievement-card')
+                    .forEach(el => observer.observe(el));
+            });
+        </script>
+    </body>
+</html> 

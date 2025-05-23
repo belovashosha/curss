@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <categories>
+        <category id="coffee" icon="fa-coffee">Кофе</category>
+        <category id="desserts" icon="fa-cookie">Десерты</category>
+        <category id="special-drinks" icon="fa-glass-cheers">Специальные напитки</category>
+        <category id="tea" icon="fa-mug-hot">Чай</category>
+    </categories>
+    
+    <items>
+        <!-- Кофейные напитки -->
+        <item id="1">
+            <name>Эспрессо</name>
+            <price>3.50</price>
+            <description>Классический итальянский эспрессо с насыщенным вкусом и густой пенкой</description>
+            <image>fotki/espresso.jpg</image>
+            <category>coffee</category>
+            <tags>
+                <tag>Классика</tag>
+                <tag>Крепкий</tag>
+            </tags>
+            <energy>Энергетическая ценность: 2 ккал</energy>
+            <ingredients>
+                <ingredient>Молотый кофе арабика</ingredient>
+                <ingredient>Вода</ingredient>
+            </ingredients>
+        </item>
+
+        <item id="2">
+            <name>Капучино</name>
+            <price>4.50</price>
+            <description>Идеальное сочетание эспрессо, молока и воздушной молочной пенки</description>
+            <image>fotki/cappuccino.jpg</image>
+            <category>coffee</category>
+            <tags>
+                <tag>С молоком</tag>
+                <tag>Популярный</tag>
+            </tags>
+            <energy>Энергетическая ценность: 120 ккал</energy>
+            <ingredients>
+                <ingredient>Эспрессо</ingredient>
+                <ingredient>Молоко</ingredient>
+                <ingredient>Молочная пенка</ingredient>
+            </ingredients>
+        </item>
+
+        <item id="3">
+            <name>Американо</name>
+            <price>3.75</price>
+            <description>Классический кофейный напиток с эспрессо и горячей водой</description>
+            <image>fotki/americano.jpg</image>
+            <category>coffee</category>
+            <tags>
+                <tag>Классика</tag>
+                <tag>Горячий</tag>
+            </tags>
+            <energy>Энергетическая ценность: 5 ккал</energy>
+            <ingredients>
+                <ingredient>Эспрессо</ingredient>
+                <ingredient>Горячая вода</ingredient>
+            </ingredients>
+        </item>
+
+        <!-- Десерты -->
+        <item id="4">
+            <name>Тирамису</name>
+            <price>6.50</price>
+            <description>Классический итальянский десерт с кофе, маскарпоне и какао</description>
+            <image>fotki/tiramisu.jpg</image>
+            <category>desserts</category>
+            <tags>
+                <tag>Итальянский</tag>
+                <tag>С кофе</tag>
+            </tags>
+            <energy>Энергетическая ценность: 350 ккал</energy>
+            <ingredients>
+                <ingredient>Печенье савоярди</ingredient>
+                <ingredient>Сыр маскарпоне</ingredient>
+                <ingredient>Кофе эспрессо</ingredient>
+                <ingredient>Какао-порошок</ingredient>
+            </ingredients>
+        </item>
+
+        <item id="5">
+            <name>Чизкейк</name>
+            <price>5.50</price>
+            <description>Нежный десерт с творожным кремом на песочной основе</description>
+            <image>fotki/cheesecake.jpg</image>
+            <category>desserts</category>
+            <tags>
+                <tag>Десерт</tag>
+                <tag>С ягодами</tag>
+            </tags>
+            <energy>Энергетическая ценность: 320 ккал</energy>
+            <ingredients>
+                <ingredient>Песочная основа</ingredient>
+                <ingredient>Творожный крем</ingredient>
+                <ingredient>Ягодный соус</ingredient>
+            </ingredients>
+        </item>
+
+        <item>
+            <name>Круассан</name>
+            <price>18.50</price>
+            <description>Классическая французская выпечка из слоеного теста с хрустящей корочкой.</description>
+            <image>fotki/круассан.png</image>
+            <category>desserts</category>
+            <tags>
+                <tag>Выпечка</tag>
+                <tag>Слоеное</tag>
+            </tags>
+            <energy>Выпечка радости и легкости, создает ощущение праздника и уюта.</energy>
+            <ingredients>
+                <ingredient>Слоеное тесто</ingredient>
+                <ingredient>Сливочное масло</ingredient>
+                <ingredient>Яйцо для смазки</ingredient>
+                <ingredient>Сахарная пудра</ingredient>
+            </ingredients>
+        </item>
+
+        <item>
+            <name>Шоколадный торт</name>
+            <price>28.50</price>
+            <description>Нежный шоколадный бисквит с насыщенным шоколадным кремом и глазурью.</description>
+            <image>fotki/шоколадный торт.png</image>
+            <category>desserts</category>
+            <tags>
+                <tag>Десерт</tag>
+                <tag>Шоколадный</tag>
+            </tags>
+            <energy>Десерт силы и энергии, поднимает настроение и дарит чувство удовлетворения.</energy>
+            <ingredients>
+                <ingredient>Шоколадный бисквит</ingredient>
+                <ingredient>Шоколадный крем</ingredient>
+                <ingredient>Шоколадная глазурь</ingredient>
+                <ingredient>Какао-порошок</ingredient>
+                <ingredient>Сливочное масло</ingredient>
+                <ingredient>Сахар</ingredient>
+            </ingredients>
+        </item>
+
+        <!-- Специальные напитки -->
+        <item id="6">
+            <name>Карамельный раф</name>
+            <price>5.50</price>
+            <description>Нежный кофейный напиток с карамельным сиропом и взбитыми сливками</description>
+            <image>fotki/caramel-raf.jpg</image>
+            <category>special-drinks</category>
+            <tags>
+                <tag>Сладкий</tag>
+                <tag>Сезонный</tag>
+            </tags>
+            <energy>Энергетическая ценность: 280 ккал</energy>
+            <ingredients>
+                <ingredient>Эспрессо</ingredient>
+                <ingredient>Молоко</ingredient>
+                <ingredient>Карамельный сироп</ingredient>
+                <ingredient>Взбитые сливки</ingredient>
+            </ingredients>
+        </item>
+
+        <!-- Чай -->
+        <item id="7">
+            <name>Мятный чай</name>
+            <price>3.00</price>
+            <description>Освежающий зеленый чай с натуральной мятой и лимоном</description>
+            <image>fotki/mint-tea.jpg</image>
+            <category>tea</category>
+            <tags>
+                <tag>Зеленый</tag>
+                <tag>Освежающий</tag>
+            </tags>
+            <energy>Энергетическая ценность: 5 ккал</energy>
+            <ingredients>
+                <ingredient>Зеленый чай</ingredient>
+                <ingredient>Свежая мята</ingredient>
+                <ingredient>Лимон</ingredient>
+                <ingredient>Мед (по желанию)</ingredient>
+            </ingredients>
+        </item>
+
+        <item id="8">
+            <name>Чай латте</name>
+            <price>4.00</price>
+            <description>Нежный чай с молоком и ванильным сиропом</description>
+            <image>fotki/tea-latte.jpg</image>
+            <category>tea</category>
+            <tags>
+                <tag>С молоком</tag>
+                <tag>Сладкий</tag>
+            </tags>
+            <energy>Энергетическая ценность: 150 ккал</energy>
+            <ingredients>
+                <ingredient>Черный чай</ingredient>
+                <ingredient>Молоко</ingredient>
+                <ingredient>Ванильный сироп</ingredient>
+            </ingredients>
+        </item>
+    </items>
+</menu> 

@@ -1,0 +1,330 @@
+/* Временные стили для меню */
+.menu-page {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.menu-hero {
+    background: linear-gradient(rgba(9, 3, 95, 0.8), rgba(9, 3, 95, 0.8));
+    padding: 4rem 0;
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.menu-hero__title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu-hero__subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.menu-categories {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    z-index: 100;
+    border-bottom: 1px solid rgba(9, 3, 95, 0.1);
+}
+
+.menu-categories__list {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-categories__button {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 0.5rem;
+}
+
+.menu-categories__button:hover,
+.menu-categories__button.active {
+    color: #09035f;
+    background: rgba(9, 3, 95, 0.1);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.menu-item {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-item__image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.menu-item__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.menu-item__content {
+    padding: 1.5rem;
+}
+
+.menu-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.menu-item__title {
+    font-size: 1.25rem;
+    color: #09035f;
+    margin: 0;
+    flex: 1;
+}
+
+.menu-item__price {
+    background: #09035f;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-left: 0.5rem;
+}
+
+.menu-item__description {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.menu-item__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.menu-item__tags span {
+    background: rgba(255, 107, 107, 0.2);
+    color: #09035f;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.menu-item__energy {
+    font-style: italic;
+    color: #666;
+    font-size: 0.875rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(9, 3, 95, 0.1);
+}
+
+.menu-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.menu-modal.active {
+    display: flex;
+}
+
+.menu-modal__content {
+    background: white;
+    border-radius: 1rem;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.menu-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #09035f;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.3s;
+}
+
+.menu-modal__close:hover {
+    transform: rotate(90deg);
+}
+
+.menu-modal__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.menu-modal__image {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.menu-modal__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-modal__info h2 {
+    font-size: 2rem;
+    color: #09035f;
+    margin-bottom: 0.5rem;
+}
+
+.menu-modal__info .price {
+    font-size: 1.5rem;
+    color: #ff6b6b;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.menu-modal__info .description {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.menu-modal__details h3 {
+    color: #09035f;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.menu-modal__details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.menu-modal__details li {
+    color: #666;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(9, 3, 95, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.menu-modal__details li i {
+    color: #ff6b6b;
+    margin-right: 0.5rem;
+}
+
+.menu-modal__energy {
+    background: rgba(255, 107, 107, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.menu-modal__energy p {
+    color: #09035f;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .menu-hero {
+        padding: 3rem 0;
+    }
+
+    .menu-hero__title {
+        font-size: 2rem;
+    }
+
+    .menu-hero__subtitle {
+        font-size: 1rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .menu-modal__body {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+} 
